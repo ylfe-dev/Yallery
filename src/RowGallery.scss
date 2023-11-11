@@ -1,0 +1,15 @@
+.bGallery-rows{
+	overflow: hidden;
+	width:100%;
+	display: grid;
+	box-sizing: border-box;
+
+    .bGallery-row {
+        display: grid;
+        grid-template-rows: 1fr;
+        .Ymage {
+            margin:0;
+        }
+
+    }
+}

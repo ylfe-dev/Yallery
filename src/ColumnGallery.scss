@@ -1,0 +1,15 @@
+.bGallery-columns{
+	overflow: hidden;
+	width:100%;
+	display: grid;
+	box-sizing: border-box;
+
+    .bGallery-column {
+        display: grid;
+        grid-template-columns: 1fr;
+        align-self: start;
+        .Ymage {
+            margin:0;
+        }
+    }
+}
