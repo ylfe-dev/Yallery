@@ -137,7 +137,7 @@ const normalizeMargins = (layout) => {
 const findLayout = (size, layouts) =>
 	layouts.findLast((layout) => layout.breakpoint < size);
 
-const layoutType = (layout) => { 
+const layoutType = (layout) => {
     if(!layout)
         return undefined
     else if(layout.rows)

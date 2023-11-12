@@ -38,7 +38,7 @@ const RowGallery = ({tiles, layout, wildUpdate}) => {
     return (
         <div ref={containerRef} className="bGallery-rows" style={containerStyle(layout)}>
             {rows.map((row, index) => 
-                <GalleryRow key={index} row={row} gapY={layout.gap.y} wildUpdate={wildUpdate} /> 
+                <GalleryRow key={index} row={row} gapX={layout.gap.x} wildUpdate={wildUpdate} /> 
             )}
         </div>
     )
@@ -54,8 +54,8 @@ const containerStyle = (layout) => ({
     })
 
 
-const rowStyle = (gapY, row) => ({
-    gridColumnGap: gapY,
+const rowStyle = (gapX, row) => ({
+    gridColumnGap: gapX,
     gridTemplateColumns: row.tiles.reduce((text, tile) =>
             text += tile.aspect.w / tile.aspect.h + "fr ", ""),
     height: row.height + "px"
@@ -64,10 +64,10 @@ const rowStyle = (gapY, row) => ({
 
 
 
-const GalleryRow = ({row, gapY, wildUpdate}) => 
-        <div className="bGallery-row" style={rowStyle(gapY, row)} >
+const GalleryRow = ({row, gapX, wildUpdate}) => 
+        <div className="bGallery-row" style={rowStyle(gapX, row)} >
             {row.tiles.map( (tile, index) => 
-                <GalleryTile key={index} content={tile} wildUpdate={wildUpdate}/>
+                <GalleryTile key={tile.id} content={tile} wildUpdate={wildUpdate}/>
             )}
         </div>
 
@@ -80,7 +80,7 @@ const distributeTilesInRows = (images, layout, row_width) => {
     //memoize in array?
     const takenRatioInRow = (row) =>{ 
         const images_ratio = row.reduce((taken, image) => taken + imageRatio(image), 0);
-        const gapX = layout.gap ? layout.gap.x ? layout.gap.x : layout.gap : 0; 
+        const gapX = layout.gap.x; 
         const gaps_ratio =   gapX * (row.length - 1) / layout.rows;
         return images_ratio + gaps_ratio;
     }

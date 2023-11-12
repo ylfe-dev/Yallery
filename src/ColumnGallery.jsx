@@ -14,8 +14,8 @@ const ColumnGallery = ({tiles, layout, wildUpdate}) => {
         <div className="bGallery-columns" style={containerStyle(layout)}>
             {columns.map((column, index) => 
                 <div  key={index} className="bGallery-column" style={{gridRowGap: layout.gap.y}}>
-                    { column.map( (tile, id) => 
-                        <GalleryTile key={id}  content={tile} aspect wildUpdate={wildUpdate}/>
+                    { column.map( (tile) => 
+                        <GalleryTile key={tile.id}  content={tile} aspect wildUpdate={wildUpdate}/>
                     )}
                 </div>
             )}
@@ -34,7 +34,6 @@ const containerStyle = (layout) => ({
 
 const distributeTilesInColumns = (tiles, layout) => { 
     
-    console.log(layout)
 	const findLowestColumn = (columns) => 
 		columns.reduce((lowest, col, index) => (col < columns[lowest]) ? index : lowest, 0)
 
@@ -53,6 +52,8 @@ const distributeTilesInColumns = (tiles, layout) => {
 			columns[lowest_column].push({...tile, id:id});
 		})
 	}
+    console.log("distribute for "+layout.columns.length+" columns")
+    console.log(columns)
 	return columns
 }
 

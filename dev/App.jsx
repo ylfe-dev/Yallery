@@ -5,10 +5,11 @@ import image_list from './portfolio.js';
 
 const options = {
     layout: [
+        {breakpoint: 1,  columns: 1, gap: {x:10, y:10}},
         {breakpoint: 600,  columns: [1, 1], gap: {x:10, y:10}},
-        {breakpoint: 900,  rows: 300, gap:10},
+        {breakpoint: 800,  rows: 300, gap:{x:10, y:10}},
         {breakpoint: 1200, columns: [1, 1, 1, 1], gap: {x:10, y:10}},
-        {breakpoint: 1800, columns: 5, gap: 15},
+        {breakpoint: 1500, columns: 5, gap: 15},
         {breakpoint: 2200, rows: 400}
     ],
  }
@@ -20,6 +21,8 @@ export function App() {
     const clickHandler = () =>{
         setState(!state);
     }
+
+   
 
     return (
         <>
