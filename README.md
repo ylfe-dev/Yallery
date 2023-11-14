@@ -5,8 +5,9 @@
 Yallery is [Ymage](https://github.com/ylfe-dev/Ymage) based react gallery component focused on advenced automation, smooth layout adjustments and fast image rendering even in "wild" situations when you can't provide image diemnsions before fetching them.
 
 
-https://github.com/ylfe-dev/Yallery/assets/111587746/a81078a1-d907-40bf-ba46-7a98fc22951b
-
+<p align="center">
+<img align="center" src="assets/img.jpg"/>
+</p>
 
 ✅ Advenced progressive JPEG recognition - image is rendered on first progressive scan avaiable - before `onLoad`.  <br/>
 ✅ Sized, neat image placeholder<br/>
