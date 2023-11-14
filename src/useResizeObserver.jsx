@@ -26,11 +26,9 @@ export default function useResizeObserver(callback, frequency = 0) {
     }
 
 	useEffect(()=>{
-        console.log("Init observer");
 	    const observer = new ResizeObserver(([entry]) => onResize(entry.contentRect))
 	    elementRef.current && observer.observe(elementRef.current);
 	    return () => {
-            console.log("disconnect observer")
             observer.disconnect();
         }
 	  },[]);

@@ -1,4 +1,4 @@
-import {Ymage} from 'ymage';
+import Ymage from 'ymage';
 
 
 const GalleryTile = ({content, onLoad=false, aspect=false, wildUpdate}) => {

@@ -1,10 +1,9 @@
 import "./ColumnGallery.scss";
 import { useState, useEffect } from "react";
-import GalleryTile from "./GalleryTile";
+import GalleryTile from "./GalleryTile.jsx";
 
 const ColumnGallery = ({tiles, layout, wildUpdate}) => {
     const [columns, setColumns] = useState(distributeTilesInColumns(tiles, layout)); 
-    console.log("Render "+columns.length+" columns")
 
     useEffect(()=>{
        setColumns(distributeTilesInColumns(tiles, layout))
@@ -52,8 +51,6 @@ const distributeTilesInColumns = (tiles, layout) => {
 			columns[lowest_column].push({...tile, id:id});
 		})
 	}
-    console.log("distribute for "+layout.columns.length+" columns")
-    console.log(columns)
 	return columns
 }
 

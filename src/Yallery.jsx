@@ -1,8 +1,8 @@
 import { useRef, useState, useEffect } from "react";
-import useResizeObserver from "./useResizeObserver";
+import useResizeObserver from "./useResizeObserver.jsx";
 
-import ColumnGallery from "./ColumnGallery"
-import RowGallery from "./RowGallery"
+import ColumnGallery from "./ColumnGallery.jsx"
+import RowGallery from "./RowGallery.jsx"
 //import GridGallery from "./GridGallery"
 
 
@@ -11,9 +11,10 @@ const options_default = {
         
     },
     layout: [
+        {breakpoint: 0,  columns: [1], gap: {x:10, y:10}},
         {breakpoint: 600,  columns: [1, 1], gap: {x:10, y:10}},
         {breakpoint: 900,  columns: [1, 1, 1]},
-        {breakpoint: 1200, columns: [1, 1, 1, 1], gap: {x:10, y:10}},
+        {breakpoint: 1200, rows: 300, gap: {x:10, y:10}},
         {breakpoint: 1800, columns: 5, gap: 15},
         {breakpoint: 2200, rows: 400}
     ],
@@ -35,7 +36,6 @@ const BGallery = ({images, options = options_default, ...props}) => {
 
     function wildUpdate(url, data){
         const update_index = tilesBuffer.current.tiles.findIndex(tile => tile.img === url)
-        console.log("update wild tile: "+url+" index: "+update_index);
         tilesBuffer.current.tiles[update_index] = {
             ...tilesBuffer.current.tiles[update_index], 
             aspect: data.aspect, 
@@ -46,8 +46,6 @@ const BGallery = ({images, options = options_default, ...props}) => {
     }
 
     function wildRender() {
-        console.log("wildRender")
-        console.log(tilesBuffer.current.tiles)
         tilesBuffer.current.timeout = null;
         setTiles([...tilesBuffer.current.tiles]);
     }
@@ -72,21 +70,27 @@ const BGallery = ({images, options = options_default, ...props}) => {
 export default BGallery;
 
 
-const normalizeTiles = (user_tiles) => user_tiles.map(tile => {
-    if(tile.img && !tile.aspect){
-        console.log("found wild: "+ tile.img)
-        return {...tile, wild:true, aspect: {w: selectRandom(0.65, 1, 1.5), h:1}};
-    }
-    else return tile;
+const normalizeTiles = (user_tiles) => { 
+    const normalized_tiles = user_tiles.map(tile => {
+        if(typeof tile === "string") 
+            return {img: tile,  wild:true, aspect: {w: selectRandom(0.65, 1, 1.5), h:1}};
+        else if(tile.img && !tile.aspect)
+            return {...tile, wild:true, aspect: {w: selectRandom(0.65, 1, 1.5), h:1}};
+        else if(tile.img) 
+            return tile;
+        else return false;
+    })
+    const correct_tiles = normalized_tiles.filter(tile => tile);
+    return correct_tiles;
 
-})
+}
 
 const selectRandom = (...list) => list[ Math.floor(Math.random() * list.length) ]
 
 
 const normalizeLayouts = (user_layouts) => {
     const normalized_layouts = user_layouts
-        .filter(layout => layout.breakpoint)
+        .filter(layout => layout.breakpoint !== undefined)
         .sort((a, b) => 
               (a.breakpoint > b.breakpoint) ? 1
             : (a.breakpoint < b.breakpoint) ? -1 : 0)

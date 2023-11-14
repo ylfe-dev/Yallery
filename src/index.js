@@ -1,2 +1,3 @@
-export { default as Yallery } from "./Yallery.jsx";
+import Yallery from "./Yallery.jsx";
 
+export default Yallery;

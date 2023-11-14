@@ -1,12 +1,12 @@
 import "./RowGallery.scss";
-import useResizeObserver from "./useResizeObserver";
+import useResizeObserver from "./useResizeObserver.jsx";
 import { useRef, useState, useEffect } from "react";
-import GalleryTile from "./GalleryTile";
+import GalleryTile from "./GalleryTile.jsx";
 
 const RowGallery = ({tiles, layout, wildUpdate}) => {
     const [rows, setRows]= useState([]);
     const rowsRef = useRef({rows: [], width: null});
-	const containerRef = useResizeObserver(adjustRows, 1);
+	const containerRef = useResizeObserver(adjustRows, 2);
 
     useEffect(()=>{
         if(rowsRef.current.width)
@@ -38,7 +38,10 @@ const RowGallery = ({tiles, layout, wildUpdate}) => {
     return (
         <div ref={containerRef} className="bGallery-rows" style={containerStyle(layout)}>
             {rows.map((row, index) => 
-                <GalleryRow key={index} row={row} gapX={layout.gap.x} wildUpdate={wildUpdate} /> 
+                <GalleryRow 
+                    key={index+row.id} 
+                    row={row} gapX={layout.gap.x} 
+                    wildUpdate={wildUpdate} /> 
             )}
         </div>
     )
@@ -64,19 +67,21 @@ const rowStyle = (gapX, row) => ({
 
 
 
-const GalleryRow = ({row, gapX, wildUpdate}) => 
+const GalleryRow = ({row, gapX, wildUpdate}) => { 
+    return (
         <div className="bGallery-row" style={rowStyle(gapX, row)} >
             {row.tiles.map( (tile, index) => 
-                <GalleryTile key={tile.id} content={tile} wildUpdate={wildUpdate}/>
+                <GalleryTile key={index} content={tile} wildUpdate={wildUpdate}/>
             )}
         </div>
+    )
+}
 
 
 const tilePhantom = (ratio) => ({html: null, aspect: {w: ratio ,h: 1}});
 
 
 const distributeTilesInRows = (images, layout, row_width) => {
-    console.log("heavy calc...");
     //memoize in array?
     const takenRatioInRow = (row) =>{ 
         const images_ratio = row.reduce((taken, image) => taken + imageRatio(image), 0);
@@ -102,6 +107,9 @@ const distributeTilesInRows = (images, layout, row_width) => {
 
     const rows_with_heights = rows_tmp.map(row_tiles => ({
         tiles: row_tiles, 
+        id: row_tiles.reduce((acc, tile) => 
+            acc + Number.parseFloat((tile.aspect.w/tile.aspect.h)).toFixed(2)+"", 
+            ""),
         height: row_width / takenRatioInRow(row_tiles)
     }));
 	return rows_with_heights;
