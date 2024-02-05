@@ -1,5 +1,5 @@
 //const images_path = "http://localhost:3000/assets/gallery/700px/";
-const images_path = "http://localhost:5173/dev/assets/";
+const images_path = "http://localhost:5174/dev/assets/";
 
 
  const stock = [

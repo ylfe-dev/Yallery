@@ -29,7 +29,7 @@ export function App() {
         <>
             <button onClick={clickHandler}>Toggle</button>
             <p>{state? "on" : "off"}</p>
-            {state ? <> <Yallery options={options} images={images.wilder} /> </> : null }
+            {state ? <> <Yallery options={options} images={images.wild} /> </> : null }
         </>
     )
 }

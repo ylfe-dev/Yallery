@@ -20,7 +20,7 @@ const options_default = {
     ],
  }
 
-const BGallery = ({images, options = options_default, ...props}) => {
+const Yallery = ({images, options = options_default, ...props}) => {
     const [tiles, setTiles] = useState(null)
 	const [layout, setLayout] = useState(null);
 	const tilesBuffer = useRef({});
@@ -67,7 +67,7 @@ const BGallery = ({images, options = options_default, ...props}) => {
 	)
 }
 
-export default BGallery;
+export default Yallery;
 
 
 const normalizeTiles = (user_tiles) => { 
