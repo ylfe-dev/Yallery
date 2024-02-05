@@ -1,6 +1,6 @@
 {
   "name": "yallery",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "type": "module",
   "description": "React gallery component based on Ymage's with advenced auto layout based on breakpoints",
   "main": "./lib/cjs/index.js",
